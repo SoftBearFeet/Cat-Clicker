@@ -5,58 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to Cat-Clicker!</title>
     <style>
-      body, html {
+      body, html, div{
         width: 100vw;
         height: 100vh;
         padding: 0;
         margin: 0;
+        border: 0;
       }
-      #top {
+      .collumn {
         width: 33.3%;
+        height: 100%;
+        float: left;
+      }
+      .top, .center,.bottom {
+        width: 100%;
         height: 33.3%;
-        margin: auto;
       }
       #counter {
         margin-top: 0;
         margin-bottom: 0;
         margin-left: auto;
         margin-right: auto;
-        padding-top: 63.3%;
         text-align: center;
       }
-      #center {
-        width: 33.3%;
-        height: 33.3%;
-        margin: auto;
+      #firstImg {
+        width: 50%;
+        height: 100%;
+        float:left;
       }
-      #catImg {
+      #secondImg {
+        width: 50%;
+        height: 100%;
+        float: left;
+      }
+      .catImg {
         width: 100%;
         height: 100%;
       }
     </style>
   </head>
   <body>
-    <div id= 'top'>
-      <p id= 'counter'>How many clicks: 0
-      </p>
+    <div class="collumn">
+      <div class= 'top'>
+        <form>
+          <label>Name the 1st Cat Image:</label>
+          <input type='text' name='catName1' id='catName1'>
+          <br>
+          <label>Name the 2nd Cat Image:</label>
+          <input type='text' name='catName2' id='catName2'>
+          <br>
+          <button type="submit" id='catNames' formmethod='post'>Submitt</button>
+        </form>
+      </div>
+      <div class= 'center'>
+      </div>
+      <div class= 'bottom'>
+      </div>
     </div>
-    <div id= 'center'>
-      <img id= 'catImg' src="http://placekitten.com/400/400">
+    <div class="collumn">
+      <div class= 'top'>
+      </div>
+      <div class= 'center'>
+        <div id ='firstImg'>
+          <img class='catImg' src="http://placekitten.com/400/400">
+        </div>
+        <div id='secondImg'>
+          <img class='catImg' src="http://placekitten.com/400/400">
+        </div>
+      </div>
+      <div class= 'bottom'>
+        <p id= 'counter'>How many clicks: 0 </p>
+      </div>
+    </div>
+    <div class="collumn">
+      <div class= 'top'>
+      </div>
+      <div class= 'center'>
+      </div>
+      <div class= 'bottom'>
+      </div>
     </div>
     <script>
-      var imgCat = document.getElementById('catImg');
+      var imgCat = document.getElementsByClassName('catImg');
       var counterText = document.getElementById('counter').innerHTML;
       var counterIndex = counterText.slice(17);
       var mainStr = counterText.substr(0,17);
       var newCounter
-      console.log(mainStr);
-      imgCat.addEventListener('click', function() {
+      var count = function() {
         updateCounter = (counterIndex++)+1;
         console.log(updateCounter);
         newCounter = mainStr.concat(updateCounter);
         console.log(newCounter);
         document.getElementById('counter').innerHTML = newCounter;
-      },false);
+      };
+      console.log(mainStr);
+      for (var i=0; i < imgCat.length; i++) {
+        imgCat[i].addEventListener('click', count, false);
+      };
+      var catName1 = document.getElementById('catName1').innerHTML;
+      var catName2 = document.getElementById('catName2').innerHTML;
+      var catSubmitt = document.getElementById('catNames');
+      var firstCatImg = document.getElementById('firstImg');
+      var secondCatImg = document.getElementById('secondImg');
+      catSubmitt.addEventListener('click', function() {
+        var name1 = document.creatTextNode(catName1);
+        var name2 = document.creatTextNode(catName2);
+        firstCatImg.appendChild(name1);
+        secondCatImg.appendChild(name2);
+        console.log('test');
+        alert('the button has been clicked');
+      }, false);
     </script>
   </body>
 </html>

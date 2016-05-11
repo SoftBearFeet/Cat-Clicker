@@ -12,6 +12,9 @@
         margin: 0;
         border: 0;
       }
+      li {
+        list-style-type: none;
+      }
       .collumn {
         width: 33.3%;
         height: 100%;
@@ -56,7 +59,7 @@
     <div class="collumn">
       <div class= 'top'>
       </div>
-      <div class= 'center'>
+      <div class= 'center' id= 'middleCenter'>
       </div>
       <div class= 'bottom'>
       </div>
@@ -71,28 +74,51 @@
     </div>
     <script>
 
-      window.onload = howManyCats;
-
-      function howManyCats() {
-        var imgUrl = 'http://placekiteen.com/400/400';
-        var names = ['Moxxy','Judy','Beth','Linda','Ruby'];
-        var topRight = document.getElementById('topRight');
-
-        //This is where the form is built and appended to the page
+      window.onload = catClicker;
+      var imgUrl = 'http://placekiteen.com/400/400';
+      var names = ['Moxxy','Judy','Beth','Linda','Ruby'];
+      var topRight = document.getElementById('topRight');
+      var form = document.createElement('form');
+      var ul = document.createElement('ul');
+      var li = document.createElement('li');
+      var br = document.createElement('br');
+      var middleCenter = document.getElementById('middleCenter');
+      
+      //Cat Class
+      function cat(catName, catImage, catScore) {
+        var name = catName;
+        var img = catImage;
+        var score = catScore;
+      };
+      function catClicker() {
+        topRight.appendChild(form);
+        form.appendChild(ul);
+        //This is where the names are generated and appeaded to the form.
         (function(loop) {
           //alert('this form is starting');
+
           for (i = 0; i < loop.length; i++) {
             //alert('this loop should be running');
-            var form = document.createElement('form');
+            var loops = loop[i];
             var checkBox = document.createElement('input');
-            checkBox.setAttribute('type', 'checkbox');
-            checkBox.setAttribute('value', loop[i]);
             var label = document.createElement('label');
             var nameNode = document.createTextNode(loop[i]);
-            topRight.appendChild(form);
-            label.appendChild(nameNode);
-            form.appendChild(checkBox);
+            checkBox.setAttribute('type', 'checkbox');
+            checkBox.setAttribute('value', loop[i]);
             form.appendChild(label);
+            label.appendChild(checkBox);
+            label.appendChild(nameNode);
+            checkBox.setAttribute('id', 'cat'+loop[i]);
+            checkBox.addEventListener('click', (function(loopsCopy){
+              return function() {
+                var inputType = document.getElementById('cat'+loopsCopy);
+                if (inputType.checked) {
+                  //alert('a box has been checked');
+                };
+                //alert(label.hasAttribute('id'));
+              };
+            })(loops));
+
           };
         })(names);
         //alert('hey you finally got this to work yet?!');

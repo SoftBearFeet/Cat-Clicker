@@ -31,7 +31,8 @@
         margin-right: auto;
         text-align: center;
       }
-      #firstImg {
+      /* No longer need this in the Stylesheet, left for refference. */
+      /*#firstImg {
         width: 50%;
         height: 100%;
         float:left;
@@ -40,7 +41,7 @@
         width: 50%;
         height: 100%;
         float: left;
-      }
+      } */
       .catImg {
         width: 100%;
         height: 100%;
@@ -75,7 +76,7 @@
     <script>
 
       window.onload = catClicker;
-      var imgUrl = 'http://placekiteen.com/400/400';
+      var imgUrl = 'http://placekitten.com/400/400';
       var names = ['Moxxy','Judy','Beth','Linda','Ruby'];
       var topRight = document.getElementById('topRight');
       var form = document.createElement('form');
@@ -83,13 +84,17 @@
       var li = document.createElement('li');
       var br = document.createElement('br');
       var middleCenter = document.getElementById('middleCenter');
-      
-      //Cat Class
-      function cat(catName, catImage, catScore) {
+      var div = document.createElement('div');
+      var img = document.createElement('img');
+
+      //Cat Class/function
+      var cat = function(catName, catImage, catScore) {
         var name = catName;
         var img = catImage;
         var score = catScore;
       };
+
+      //Main program to Cat Clicker, it is invoked when the window is done loading.
       function catClicker() {
         topRight.appendChild(form);
         form.appendChild(ul);
@@ -105,7 +110,7 @@
             var nameNode = document.createTextNode(loop[i]);
             checkBox.setAttribute('type', 'checkbox');
             checkBox.setAttribute('value', loop[i]);
-            form.appendChild(label);
+            ul.appendChild(label);
             label.appendChild(checkBox);
             label.appendChild(nameNode);
             checkBox.setAttribute('id', 'cat'+loop[i]);
@@ -113,6 +118,13 @@
               return function() {
                 var inputType = document.getElementById('cat'+loopsCopy);
                 if (inputType.checked) {
+                  middleCenter.appendChild(div);
+                  div.setAttribute('id', 'catDiv'+loopsCopy);
+                  div.appendChild(img);
+                  img.setAttribute('src', imgUrl);
+                  img.setAttribute('id', 'firstImg');
+
+
                   //alert('a box has been checked');
                 };
                 //alert(label.hasAttribute('id'));
